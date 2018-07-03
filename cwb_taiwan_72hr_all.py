@@ -158,20 +158,19 @@ df.to_csv(save_name,index=False,encoding="utf_8_sig")
 
 listdata = df.values.tolist()
 
-
-server = '139.223.150.19'
-username = 'iotreader'
-password = 'onlyreader'
-database = 'TMIOT'
+server = '168.14.xx.xx'
+username = 'username'
+password = 'password'
+database = 'database name'
 driver = '{ODBC Driver 13 for SQL Server}'
 connectionString = 'DRIVER={0};PORT=1433;SERVER={1};D988ATABASE={2};UID={3};PWD={4}'.format(driver, server, database, username, password)
 cnxn = pyodbc.connect(connectionString)
 cursor = cnxn.cursor()
 
 for d in listdata:
-    insertSql = "insert into [TMIOT].[dbo].[WEATHER_CRAWLER]([CITY],[DISTRICT],[GEOCODE],[DAYTIME],[T],[TD],[RH],[WD],[WS],[BF],[AT],[Wx],[Wx_n],[PoP6h],[PoP12h],[get_day])values (\'{0}\',\'{1}\',{2},convert(datetime,\'{3}\',120),{4},{5},{6},\'{7}\',\'{8}\',\'{9}\',{10},\'{11}\',{12},{13},{14},convert(date,\'{15}\'))".format(d[0],d[1],d[2],d[3],d[4],d[5],d[6],d[7],d[8],d[9],d[10],d[11],d[12],d[13],d[14],d[15])
+    insertSql = "insert into [dbname].[dbo].[WEATHER_CRAWLER]([CITY],[DISTRICT],[GEOCODE],[DAYTIME],[T],[TD],[RH],[WD],[WS],[BF],[AT],[Wx],[Wx_n],[PoP6h],[PoP12h],[get_day])values (\'{0}\',\'{1}\',{2},convert(datetime,\'{3}\',120),{4},{5},{6},\'{7}\',\'{8}\',\'{9}\',{10},\'{11}\',{12},{13},{14},convert(date,\'{15}\'))".format(d[0],d[1],d[2],d[3],d[4],d[5],d[6],d[7],d[8],d[9],d[10],d[11],d[12],d[13],d[14],d[15])
     cursor.execute(insertSql)
-    
+
 cursor.commit()
 cnxn.close()
 
